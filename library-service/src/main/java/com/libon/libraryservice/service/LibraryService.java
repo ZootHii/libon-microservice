@@ -9,6 +9,7 @@ import com.libon.libraryservice.repository.LibraryRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,5 +46,11 @@ public class LibraryService {
                 .orElseThrow(() -> new LibraryNotFoundException("Library could not found by id:" + addBookRequest.getLibraryId()));
         library.getUserBook().add(bookId);
         repository.save(library);
+    }
+
+    public List<String> findAllLibraryIds() {
+        return repository.findAll().stream()
+                .map(Library::getId)
+                .collect(Collectors.toList());
     }
 }

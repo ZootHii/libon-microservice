@@ -12,11 +12,15 @@ spring:
     name: library-service
   profiles:
     active: default
+
 server:
-  port: 8090
+#  port: 8090
+  port: 0
+
 eureka:
   instance:
     prefer-ip-address: true
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${random.value}
   client:
     #    fetch-registry: true
     #    register-with-eureka: true
