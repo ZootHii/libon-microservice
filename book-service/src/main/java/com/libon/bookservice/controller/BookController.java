@@ -3,6 +3,8 @@ package com.libon.bookservice.controller;
 import com.libon.bookservice.dto.BookDto;
 import com.libon.bookservice.dto.BookIdDto;
 import com.libon.bookservice.service.BookService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,8 @@ import java.util.List;
 @Validated
 public class BookController {
 
+    Logger logger = LoggerFactory.getLogger(BookController.class);
+
     private final BookService service;
 
     public BookController(BookService service) {
@@ -31,6 +35,7 @@ public class BookController {
 
     @GetMapping("/isbn/{isbn}")
     public ResponseEntity<BookIdDto> getByIsbn(@PathVariable @NotEmpty String isbn) {
+        logger.info("Book requested by isbn: " + isbn);
         return ResponseEntity.ok(service.findByIsbn(isbn));
     }
 
